@@ -1,0 +1,10 @@
+all:
+  hosts:
+    windows_lab:
+      ansible_host: "{{ namespace.labWindowsHost }}"
+      ansible_user: "{{ secret('LAB_WINDOWS_USER') }}"
+      ansible_password: "{{ secret('LAB_WINDOWS_PASSWORD') }}"
+      ansible_connection: winrm
+      ansible_port: 5985
+      ansible_winrm_transport: ntlm
+      ansible_winrm_scheme: http

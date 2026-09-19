@@ -1,0 +1,23 @@
+---
+- name: maintain_participant_scoped_windows_marker
+  hosts: windows_lab
+  gather_facts: false
+  tasks:
+    - name: ensure_marker_directory_exists
+      ansible.windows.win_file:
+        path: '{{ namespace.labWindowsWorkDir }}\ansible-lab'
+        state: directory
+
+    - name: maintain_windows_marker_file
+      ansible.windows.win_copy:
+        dest: '{{ namespace.labWindowsWorkDir }}\ansible-lab\managed-by-ansible.txt'
+        content: "Managed idempotently by Ansible for participant {{ namespace.labParticipant }}.\r\n"
+
+    - name: capture_marker_metadata
+      ansible.windows.win_stat:
+        path: '{{ namespace.labWindowsWorkDir }}\ansible-lab\managed-by-ansible.txt'
+      register: marker
+
+    - name: display_captured_marker_metadata
+      ansible.builtin.debug:
+        var: marker.stat

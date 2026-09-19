@@ -1,0 +1,17 @@
+---
+- name: verify_windows_winrm_automation
+  hosts: windows_lab
+  gather_facts: false
+  tasks:
+    - name: verify_winrm_connectivity
+      ansible.windows.win_ping:
+
+    - name: run_participant_powershell_probe
+      ansible.windows.win_powershell:
+        script: |
+          & "{{ namespace.labWindowsWorkDir }}\remote_probe.ps1" -Environment "lab"
+      register: probe
+
+    - name: display_remote_probe_output
+      ansible.builtin.debug:
+        var: probe.output

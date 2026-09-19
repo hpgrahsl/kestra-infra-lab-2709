@@ -1,0 +1,19 @@
+---
+- name: apply_participant_marker
+  hosts: lab
+  gather_facts: false
+  tasks:
+    - name: verify_remote_connectivity
+      ansible.builtin.ping:
+
+    - name: ensure_ansible_lab_directory_exists
+      ansible.builtin.file:
+        path: "{{ namespace.labLinuxWorkDir }}/ansible-lab"
+        state: directory
+        mode: "0700"
+
+    - name: maintain_ansible_marker_file
+      ansible.builtin.copy:
+        dest: "{{ namespace.labLinuxWorkDir }}/ansible-lab/managed-by-ansible.txt"
+        content: "Managed idempotently by Ansible for participant {{ namespace.labParticipant }}.\n"
+        mode: "0600"

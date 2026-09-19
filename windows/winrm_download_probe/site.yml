@@ -1,0 +1,11 @@
+---
+- name: retrieve_participant_remote_powershell_probe
+  hosts: windows_lab
+  gather_facts: false
+  tasks:
+    - name: fetch_remote_probe_to_ansible_controller
+      ansible.builtin.fetch:
+        src: '{{ namespace.labWindowsWorkDir }}\remote_probe.ps1'
+        dest: downloaded-remote_probe.ps1
+        flat: true
+        validate_checksum: true
