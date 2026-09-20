@@ -1,0 +1,7 @@
+{
+  "records": [
+    {"id": "record-001", "status": "valid"},
+    {"id": "record-002", "status": "valid"},
+    {"id": "record-003", "status": "valid"}
+  ]
+}
